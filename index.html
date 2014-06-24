@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Another jQuery Mobile App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body>
+
+    <div id="home" data-role="page">
+        <div data-role="header">
+            <h1>Welcome</h1>
+            <a href="#" data-icon="home" class="ui-btn-left">Medidata</a>
+        </div>
+        <div role="main" class="ui-content">
+            <ul id="studyList" data-role="listview" data-theme="a" data-divider-theme="a">
+            </ul>
+        </div>  
+
+    </div>
+
+    <div id="scenarios" data-role="page">
+        <div data-role="header">
+            <a href="#home" data-icon="left" class="ui-btn-left">Back</a>
+            <h1></h1>
+        </div>
+        <div role="main" class="ui-content">
+            <ul id="scenarioList" data-role="listview" data-theme="a" data-divider-theme="a">
+            </ul>
+        </div>  
+
+    </div>
+
+
+
+    <div id="schedule_home" data-role="page">
+        <div data-role="header">
+            <h1>Schedule</h1>
+            <a href="#home" data-icon="home" class="ui-btn-left">Medidata</a>
+        </div>
+
+        <div role="main" class="ui-content">
+            <div id="visitList" data-role="collapsibleset" data-theme="a" data-content-theme="a" data-inset="false">
+                <!-- <div data-role="collapsible">
+                    <h3>Visit 1</h3>
+                    <table data-role="table" class="ui-responsive">
+                        <thead>
+                            <tr>
+                                <th>Activities</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Disability Assessment for Dementia</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>ESRD-SCL-TM</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Water-Displacement Volumetry; Foot</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div data-role="collapsible">
+                    <h3>Visit 2</h3>
+                    <ul data-role="listview" data-theme="a" data-divider-theme="a">
+                        <li data-role="list-divider">Scedule Activities
+                            <span style="float: right; vertical-algin:middle">Quantity</span>
+                        </li>
+                        <li><a href="#schedule">Mobility Inventory for Agoraphobia<span class="ui-li-count">4</span></a>
+                        </li>
+                        <li><a href="#">Otolaryngologic Examination<span class="ui-li-count">1</span></a>
+                        </li>
+                        <li><a href="#">Serum Pregnancy Test - Quantitative<span class="ui-li-count">6</span></a>
+                        </li>
+                        <li><a href="#">QST: Heat-Pain Stimuli<span class="ui-li-count">3</span></a>
+                        </li>
+                        <li><a href="#">FACT - Neurotoxicity [SELECT *FACG]<span class="ui-li-count">4</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <div data-role="collapsible">
+                    <h3>Visit 3</h3>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div id="schedule_detail" data-role="page">
+        <div id="header" data-role="header">
+            <h1>Schedule Details</h1>
+            <a href="#schedule_home" data-icon="arrow-l" class="ui-btn-left">Back</a>
+        </div>
+
+        <div role="main" class="ui-content">
+            <h1>schedule detail</h1>
+        </div>
+    </div>
+
+</body>
+
+</html>

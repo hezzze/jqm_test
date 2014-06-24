@@ -1,0 +1,31 @@
+[{
+    "name": "Visit 1",
+    "activities": [{
+        "name": "Disability Assessment for Dementia",
+        "quantity": 3
+    }, {
+        "name": "ESRD-SCL-TM",
+        "quantity": 4
+    }, {
+        "name": "Water-Displacement Volumetry; Foot",
+        "quantity": 3
+    }]
+}, {
+    "name": "Visit 2",
+    "activities": [{
+        "name": "Mobility Inventory for Agoraphobia",
+        "quantity": 4
+    }, {
+        "name": "Otolaryngologic Examination",
+        "quantity": 1
+    }, {
+        "name": "Serum Pregnancy Test - Quantitative",
+        "quantity": 6
+    }, {
+        "name": "QST: Heat-Pain Stimuli",
+        "quantity": 3
+    }, {
+        "name": "FACT - Neurotoxicity [SELECT *FACG]",
+        "quantity": 4
+    }]
+}]
