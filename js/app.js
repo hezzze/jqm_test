@@ -37,11 +37,27 @@ $(function() {
 
     });
 
-    $('#home').on('pageshow', refreshStudyList);
+    $(document).on('pagecontainerbeforetransition', function(event, ui) {
+        switch (ui.toPage[0].id) {
+            case "home":
+                refreshStudyList();
+                break;
+            case "scenarios":
+                refreshScenarioList();
+                break;
+            case "schedule_home":
+                refreshSchedule();
+                break;
+        }
+    });
 
-    $('#scenarios').on('pageshow', refreshScenarioList);
+    // $('#home').on('pagecontainerbeforehide', refreshStudyList);
 
-    $('#schedule_home').on('pageshow', refreshSchedule);
+    // $('#scenarios').on('pageshow', refreshScenarioList);
+
+    // $('#schedule_home').on('pageshow', refreshSchedule);
+
+
 });
 
 function refreshStudyList() {
@@ -60,21 +76,21 @@ function refreshStudyList() {
                 inner: [study.name]
             }]
         }
-        $('#studyList').append(_HTML(elmt));        
+        $('#studyList').append(_HTML(elmt));
     }
-    $('#studyList li').each(function(index) {    	
-    	$( this ).click(index, function(e) {
-            _scope.studyIndex = index;            
+    $('#studyList li').each(function(index) {
+        $(this).click(function(e) {
+            _scope.studyIndex = index;
         });
 
     })
-    
-    $('#home').trigger('create');
+
+    $('#studyList').listview('refresh');
 }
 
 function refreshScenarioList() {
-    $('#scenarioList').empty();    
-    var scenarios = _scope.data[_scope.studyIndex].scenarios;    
+    $('#scenarioList').empty();
+    var scenarios = _scope.data[_scope.studyIndex].scenarios;
     var scenario, elmt;
     for (var j = 0; j < scenarios.length; j++) {
         scenario = scenarios[j];
@@ -88,10 +104,15 @@ function refreshScenarioList() {
                 inner: [scenario.name]
             }]
         };
-        $('#scenarioList').append(_HTML(elmt)).click({scenarioIndex: j}, function(e) {
-            _scope.scenarioIndex = e.data.scenarioIndex;
-        });
+        $('#scenarioList').append(_HTML(elmt));
+
     };
+    $('#scenarioList li').each(function(index) {
+        $(this).click(function(e) {
+            _scope.scenarioIndex = index;
+        });
+    });
+    $('#scenarioList').listview("refresh");
 }
 
 function refreshSchedule() {
