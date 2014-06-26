@@ -1,10 +1,3 @@
-_scope = {
-    studyIndex: -1,
-    scenarioIndex: -1,
-    data: null,
-}
-
-
 function _HTML(elmt) {
 
     if (typeof(elmt) === "string") {
@@ -30,26 +23,45 @@ function _HTML(elmt) {
 
 $(function() {
 
-    $.getJSON("studies.json", function(data) {
+    var data;
 
-        _scope.data = data;
-        refreshStudyList();
+    $.getJSON("studies.json", function(studyData) {
 
-    });
+        data = studyData;
 
-    $(document).on('pagecontainerbeforetransition', function(event, ui) {
-        switch (ui.toPage[0].id) {
-            case "home":
-                refreshStudyList();
-                break;
+        switch ($.mobile.path.get()) {
+
             case "scenarios":
-                refreshScenarioList();
+                refreshScenarioList(data);
                 break;
             case "schedule_home":
-                refreshSchedule();
+                refreshSchedule(data);
                 break;
+            case "home":
+            default:
+                refreshStudyList(data);
         }
+
+
+        $(document).on('pagecontainerbeforetransition', function(event, ui) {
+            switch (ui.toPage[0].id) {
+                case "home":
+                    refreshStudyList(data);
+                    break;
+                case "scenarios":
+                    refreshScenarioList(data);
+                    break;
+                case "schedule_home":
+                    refreshSchedule(data);
+                    break;
+            }
+        });
+
     });
+
+
+
+
 
     // $('#home').on('pagecontainerbeforehide', refreshStudyList);
 
@@ -60,9 +72,9 @@ $(function() {
 
 });
 
-function refreshStudyList() {
+function refreshStudyList(data) {
     $('#studyList').empty();
-    var studies = _scope.data;
+    var studies = data;
     var study, elmt;
     for (var i = 0; i < studies.length; i++) {
         study = studies[i];
@@ -80,7 +92,7 @@ function refreshStudyList() {
     }
     $('#studyList li').each(function(index) {
         $(this).click(function(e) {
-            _scope.studyIndex = index;
+            sessionStorage.studyIndex = index;
         });
 
     })
@@ -88,9 +100,12 @@ function refreshStudyList() {
     $('#studyList').listview('refresh');
 }
 
-function refreshScenarioList() {
+function refreshScenarioList(data) {
+    var study = data[sessionStorage.studyIndex];
+    $('#scenarioListTitle').html(study.name);
+
     $('#scenarioList').empty();
-    var scenarios = _scope.data[_scope.studyIndex].scenarios;
+    var scenarios = data[sessionStorage.studyIndex].scenarios;
     var scenario, elmt;
     for (var j = 0; j < scenarios.length; j++) {
         scenario = scenarios[j];
@@ -109,14 +124,18 @@ function refreshScenarioList() {
     };
     $('#scenarioList li').each(function(index) {
         $(this).click(function(e) {
-            _scope.scenarioIndex = index;
+            sessionStorage.scenarioIndex = index;
         });
     });
     $('#scenarioList').listview("refresh");
 }
 
-function refreshSchedule() {
-    $.getJSON('schedule.json', function(data) {
+function refreshSchedule(data) {
+    $.getJSON('schedule.json', function(scheudleData) {
+
+        var scenario = data[sessionStorage.studyIndex].scenarios[sessionStorage.scenarioIndex];
+        $('#visitListTitle').html(scenario.name);
+
         $('#visitList').empty();
         var activityListHeader = {
             tag: 'li',
@@ -134,8 +153,8 @@ function refreshSchedule() {
 
         var visit, visitCollapsible, activity, activityList;
 
-        for (var i = 0; i < data.length; i++) {
-            visit = data[i];
+        for (var i = 0; i < scheudleData.length; i++) {
+            visit = scheudleData[i];
 
             activityList = {
                 tag: 'ul',
@@ -155,7 +174,7 @@ function refreshSchedule() {
                     inner: [{
                         tag: 'a',
                         attrs: {
-                            href: '#'
+                            href: '#schedule_detail'
                         },
                         inner: [activity.name, {
                             tag: 'span',
